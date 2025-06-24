@@ -10,6 +10,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
     public class Sale : BaseEntity
     {
+        public Guid Id { get; set; }
         public string SaleNumber { get; set; }
         public DateTime SaleDate { get; set; }
         public string Customer { get; set; }
@@ -18,6 +19,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public bool IsCancelled { get; private set; }
 
         public List<SaleItem> Items { get; set; } = new();
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         public void CalculateTotal()
         {
@@ -28,6 +31,12 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         {
             IsCancelled = true;
             // Log SaleCancelled Event
+        }
+
+        public Sale()
+        {
+            Id = Guid.NewGuid();
+            CreatedAt = (DateTime.Now).ToUniversalTime();
         }
 
         //public void AddItem(ProductInfo product, int quantity, decimal unitPrice)
